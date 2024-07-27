@@ -76,3 +76,25 @@ mt[mt$cyl==4]
 merged <- merge(mt,mt[mt$cyl>4],by="carname")
 str(merged)
 ```
+
+## SQl to Data.table query
+
+```
+SELECT carb, AVG(mpg) as avg_mpg, COUNT(*) as count
+FROM mt
+WHERE cyl = 4 AND mpg > 4
+GROUP BY carb
+ORDER BY carb
+LIMIT 10
+```
+
+If the same query is converted to `data.table` syntax in R, it would be the following.
+
+```{r}
+result <- mt[cyl == 4 & mpg > 4, 
+             .(avg_mpg = mean(mpg), count = .N), 
+             by = .(carb)
+            ][order(carb)
+            ][1:10]
+result
+```

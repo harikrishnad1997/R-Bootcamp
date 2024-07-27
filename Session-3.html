@@ -530,6 +530,35 @@ str(merged)</code></pre>
 ##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; 
 ##  - attr(*, &quot;sorted&quot;)= chr &quot;carname&quot;</code></pre>
 </div>
+<div id="sql-to-data.table-query" class="section level2">
+<h2>SQl to Data.table query</h2>
+<pre><code>SELECT carb, AVG(mpg) as avg_mpg, COUNT(*) as count
+FROM mt
+WHERE cyl = 4 AND mpg &gt; 4
+GROUP BY carb
+ORDER BY carb
+LIMIT 10</code></pre>
+<p>If the same query is converted to <code>data.table</code> syntax in
+R, it would be the following.</p>
+<pre class="r"><code>result &lt;- mt[cyl == 4 &amp; mpg &gt; 4, 
+             .(avg_mpg = mean(mpg), count = .N), 
+             by = .(carb)
+            ][order(carb)
+            ][1:10]
+result</code></pre>
+<pre><code>##      carb  avg_mpg count
+##     &lt;int&gt;    &lt;num&gt; &lt;int&gt;
+##  1:     1 5.230231     5
+##  2:     2 5.077807     6
+##  3:    NA       NA    NA
+##  4:    NA       NA    NA
+##  5:    NA       NA    NA
+##  6:    NA       NA    NA
+##  7:    NA       NA    NA
+##  8:    NA       NA    NA
+##  9:    NA       NA    NA
+## 10:    NA       NA    NA</code></pre>
+</div>
 </div>
 
 
