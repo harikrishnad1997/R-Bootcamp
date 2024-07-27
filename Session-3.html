@@ -540,7 +540,7 @@ ORDER BY carb
 LIMIT 10</code></pre>
 <p>If the same query is converted to <code>data.table</code> syntax in
 R, it would be the following.</p>
-<pre class="r"><code>result &lt;- mt[cyl == 4 &amp; mpg &gt; 4, 
+<pre class="r"><code>result &lt;- mt[carb == 4 &amp; mpg &gt; 4, 
              .(avg_mpg = mean(mpg), count = .N), 
              by = .(carb)
             ][order(carb)
@@ -548,8 +548,8 @@ R, it would be the following.</p>
 result</code></pre>
 <pre><code>##      carb  avg_mpg count
 ##     &lt;int&gt;    &lt;num&gt; &lt;int&gt;
-##  1:     1 5.230231     5
-##  2:     2 5.077807     6
+##  1:     4 4.441484     4
+##  2:    NA       NA    NA
 ##  3:    NA       NA    NA
 ##  4:    NA       NA    NA
 ##  5:    NA       NA    NA
@@ -558,6 +558,22 @@ result</code></pre>
 ##  8:    NA       NA    NA
 ##  9:    NA       NA    NA
 ## 10:    NA       NA    NA</code></pre>
+<p>Let’s break down this data.table operation:</p>
+<ul>
+<li><code>mt</code> is the data.table object (equivalent to the table
+name in SQL).</li>
+<li><code>[cyl == 4 &amp; mpg &gt; 4]</code>, is the WHERE clause.</li>
+<li><code>.(avg_mpg = mean(mpg), count = .N)</code>, performs the
+aggregation:</li>
+<li><code>mean(mpg)</code> calculates the average MPG</li>
+<li><code>.N</code> is a special symbol in data.table that gives the
+number of rows in each group</li>
+<li><code>by = .(carb)</code> is equivalent to GROUP BY in SQL.</li>
+<li><code>[order(carb)]</code> sorts the result by carb in ascending
+order.</li>
+<li><code>[1:10]</code> limits the result to the first 10 rows (LIMIT in
+SQL).</li>
+</ul>
 </div>
 </div>
 

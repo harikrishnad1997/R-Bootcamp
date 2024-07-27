@@ -91,10 +91,21 @@ LIMIT 10
 If the same query is converted to `data.table` syntax in R, it would be the following.
 
 ```{r}
-result <- mt[cyl == 4 & mpg > 4, 
+result <- mt[carb == 4 & mpg > 4, 
              .(avg_mpg = mean(mpg), count = .N), 
              by = .(carb)
             ][order(carb)
             ][1:10]
 result
 ```
+
+Let's break down this data.table operation:
+
+* `mt` is the data.table object (equivalent to the table name in SQL).
+* `[cyl == 4 & mpg > 4]`, is the WHERE clause.
+* `.(avg_mpg = mean(mpg), count = .N)`, performs the aggregation:
+* `mean(mpg)` calculates the average MPG
+* `.N` is a special symbol in data.table that gives the number of rows in each group
+* `by = .(carb)` is equivalent to GROUP BY in SQL.
+* `[order(carb)]` sorts the result by carb in ascending order.
+* `[1:10]` limits the result to the first 10 rows (LIMIT in SQL).
