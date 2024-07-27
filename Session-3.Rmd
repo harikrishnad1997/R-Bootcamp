@@ -1,0 +1,78 @@
+---
+title: "R Bootcamp: Session 3"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+# Install from CRAN
+#install.packages('data.table')
+require(data.table)
+```
+
+# Data.table
+
+The data.table is an alternative to R’s default data.frame to handle tabular data. The reason it’s so popular is because of the speed of execution on larger data and the terse syntax.
+
+```{r}
+mt <- fread("https://raw.githubusercontent.com/selva86/datasets/master/mtcars.csv")
+head(mt)
+class(mt)
+```
+
+Counting the number of rows and columns in `data.table`
+
+```{r}
+# number of rows(or columns), use it to verify if 
+# the number of rows matches what is expected
+nrow(mt)
+ncol(mt)
+```
+
+`str()` extracts the structure of the dataframe 
+
+```{r}
+str(mt)
+```
+
+`summary()` helps understanding all the numerical columns in the data.table
+
+```{r}
+summary(mt)
+```
+
+# `$` operator
+`$` returns the values of a column as a vector
+
+```{r}
+mpg <- mt$mpg
+typeof(mpg)
+mpg
+```
+## Quantiles
+
+Percentiles are used in statistics to give you a number that describes the value that a given percent of the values are lower than.
+
+```{r}
+quantile(mt$wt)
+```
+
+### Adding a new column
+the new column was added by calculations
+
+```{r}
+mt$myCalc <- mt$mpg * mt$hp
+```
+
+## Filtering
+
+```{r}
+mt[mt$cyl==4]
+```
+
+## Merging Dataframe
+
+```{r}
+merged <- merge(mt,mt[mt$cyl>4],by="carname")
+str(merged)
+```

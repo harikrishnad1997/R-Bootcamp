@@ -1,0 +1,102 @@
+---
+title: "R Bootcamp: Session 4"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+# Install from CRAN
+#install.packages('data.table')
+require(data.table)
+```
+
+# Plot
+
+The `plot()` function is used to draw points (markers) in a diagram.
+
+```{r}
+plot(c(1,2,4,8), c(3,5,8,10))
+```
+
+
+## Sequence of points
+
+```{r}
+plot(1:10)
+```
+
+## Drawing a line
+
+```{r}
+plot(1:10, type="l")
+```
+
+## Plot Labels
+
+The `plot()` function also accept other parameters, such as `main`, `xlab` and `ylab`.
+
+```{r}
+plot(1:10, main="My Graph", xlab="The x-axis", ylab="The y axis")
+```
+
+# Pie Chart
+
+A pie chart is a circular graphical view of data.
+
+```{r}
+# Create a vector of pies
+x <- c(10,20,30,40)
+
+# Display the pie chart
+pie(x)
+```
+
+# Bar plot
+
+A bar chart uses rectangular bars to visualize data. Bar charts can be displayed horizontally or vertically. The height or length of the bars are proportional to the values they represent.
+
+```{r}
+# x-axis values
+x <- c("A", "B", "C", "D")
+
+# y-axis values
+y <- c(2, 4, 6, 8)
+
+barplot(y, names.arg = x)
+```
+
+# Histogram
+
+Histograms can be created using the `hist()` function in R programming language. This function takes in a vector of values for which the histogram is plotted.
+
+```{r}
+require(data.table)
+mt <- fread("https://raw.githubusercontent.com/selva86/datasets/master/mtcars.csv")
+hist(mt$wt)
+```
+
+# GGPlot
+
+```{r}
+library(ggplot2)
+data("midwest", package = "ggplot2")  # load the data
+```
+
+Scatter plot
+
+```{r}
+ggplot(midwest, aes(x=area, y=poptotal)) + geom_point()
+```
+
+```{r}
+g <- ggplot(midwest, aes(x=area, y=poptotal)) + geom_point() + geom_smooth(method="lm")  # set se=FALSE to turnoff confidence bands
+
+g1 <- g + coord_cartesian(xlim=c(0,0.1), ylim=c(0, 1000000))  # zooms in
+
+# Add Title and Labels
+g1 + labs(title="Area Vs Population", subtitle="From midwest dataset", y="Population", x="Area", caption="Midwest Demographics")
+
+# or
+
+g1 + ggtitle("Area Vs Population", subtitle="From midwest dataset") + xlab("Area") + ylab("Population")
+```

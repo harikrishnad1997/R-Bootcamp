@@ -1,0 +1,157 @@
+---
+title: "R Bootcamp: Session 1"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+# Libraries used in this code
+# (Add any libraries you might need here)
+```
+
+# R Variables
+
+Variables are containers for storing data values. 
+
+In R, a variable is created the moment you first assign a value to it. To assign a value to a variable, use the <- sign. To output (or print) the variable value, simply type the variable name.
+
+## Creating and Using Variables
+
+```{r}
+
+# Creating and playing with variables
+A <- 10
+B <- 5
+
+C <- A + B
+C  # Outputs the result of A + B
+
+```
+
+### Performing Operations
+
+```{r}
+
+var.a <- 2.5
+var.b <- 4
+
+# Performing some operations between them
+result <- var.a / var.b
+result  # Outputs the result of var.a / var.b
+
+result.a <- sqrt(var.a)
+result.a  # Outputs the square root of var.a
+
+```
+
+### Printing Variables
+
+```{r}
+name <- "John Doe"
+
+name  # Auto-prints the value of the name variable
+
+print(name)  # Useful while scripting and looping
+```
+
+####Using the print Command in Loops
+The print command is particularly useful in loops and scripts to explicitly output values.
+
+```{r}
+
+for (x in 1:10) {
+  x # Doesn't result in any output as it is inside a loop
+  print(x)  # Prints the current value of x in each iteration
+}
+
+```
+
+## Logical Variables and Operators
+
+Logical variables are used to store boolean values (TRUE or FALSE). They are essential in conditional statements and loops.
+
+### Testing the Value of Some Expressions
+
+```{r}
+# Testing the value of some expressions (TRUE or FALSE)
+4 < 5     # TRUE
+10 > 100  # FALSE
+4 == 5    # FALSE
+
+# Assigning the result of a logical expression to a variable
+result <- 4 < 5
+typeof(result)  # Outputs the type of the result (logical)
+
+resultA <- !TRUE  # Negation of TRUE
+resultA  # Outputs FALSE
+typeof(resultA)  # Outputs the type of resultA (logical)
+```
+
+## Logical Operators
+Logical operators like AND (&), OR (|), and NOT (!) are used to perform logical operations on boolean values.
+
+```{r}
+
+# This is an OR expression. If one of the variables is TRUE,
+# the expression will return TRUE.
+result | resultA  # Outputs TRUE (since result is TRUE)
+```
+
+# Process Control
+
+## While loop
+
+With the while loop we can execute a set of statements as long as a condition is TRUE:
+
+```{r}
+n = 0
+
+while(n < 10){
+  print("Testing the while loop ")
+  print(n)
+  n <- n + 1
+}
+```
+
+### Break
+With the break statement, we can stop the loop even if the while condition is TRUE:
+
+```{r}
+i <- 1
+while (i < 6) {
+  print(i)
+  i <- i + 1
+  if (i == 4) {
+    break
+  }
+}
+```
+
+`Next` is used to skip a iteration without terminating the loop
+
+## For Loop
+
+A for loop is used for iterating over a sequence:
+
+```{r}
+fruits <- list("apple", "banana", "cherry")
+
+for (x in fruits) {
+  print(x)
+}
+```
+
+### Nested loops
+
+It is also possible to place a loop inside another loop. This is called a nested loop:
+
+```{r}
+adj <- list("red", "yellow", "tasty")
+
+fruits <- list("apple", "banana", "cherry")
+for (x in adj) {
+  for (y in fruits) {
+    print(paste(x, y))
+  }
+}
+```
